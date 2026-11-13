@@ -13,6 +13,7 @@ function balloonFrame(input,dt,valid){
  const blocked=flightPaused||$('help').open||document.hidden;
  const levels=mode==='camera'?trackedLevels:[input,input,input];
  const result=flight.step(levels,dt,valid,blocked);
+ if(typeof updateSky==='function')updateSky(result.height,dt,valid&&!blocked);
  if(valid&&!blocked){$('balloon').style.bottom=`${82+result.height*180}px`;$('balloon').classList.toggle('landingGlow',result.glow)}else $('balloon').classList.remove('landingGlow');
  if(result.landed){const session=flightSessions[mode],saved=flightSaved[mode];session.score+=10;session.count++;saved.best=Math.max(saved.best,session.score);saved.history.unshift(10);saved.history=saved.history.slice(0,10);saveFlights();updateFlightBoard();say('A glowing landing! +10 points. Take your time.');}
  else if(!blocked&&valid&&result.phase==='flying')say('Up we go! Follow your usual routine.');
