@@ -13,7 +13,7 @@ function updateSky(height,dt,enabled){
  if(!reduced)skyDrift+=Math.max(0,height)*dt*.32;
  gameSection.style.setProperty('--sky-altitude',String(reduced?0:height));
  gameSection.style.setProperty('--sky-tint',String(height));
- gameSection.style.setProperty('--cloud-drift',`${reduced?0:Math.sin(skyDrift)*35}px`);
+ gameSection.style.setProperty('--cloud-drift',`${reduced?0:Math.sin(skyDrift)*35+(cameraControl==='body'&&mode==='camera'?bodySway*.5:0)}px`);
  gameSection.style.setProperty('--far-drift',`${reduced?0:Math.sin(skyDrift*.65)*12}px`);
  skyCaption.textContent=height>.55?'☁ Among the clouds':height>.12?'✧ Above the meadow':'☘ Meadow';
 }
